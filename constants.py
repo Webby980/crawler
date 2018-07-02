@@ -14,6 +14,7 @@ DVWA_VULNERABILITY_ENDPOINTS = ['vulnerabilities/sqli/']
 # SQL injection payloads
 SQL_ALWAYS_TRUE_PAYLOAD = """%' or '0'='0"""
 SQL_SYNTAX_ERROR_PAYLOAD = "';;;'"
+SQL_VULNERABILITY_CHECK_TEXT = 'You have an error in your SQL syntax'
 
 # Cookies
 SECURITY_COOKIE_KEY = 'security'

@@ -15,7 +15,7 @@ def make_app():
 
     return tornado.web.Application([
         (r'/check-vulnerability', CheckVulnerabilityHandler,
-         dict(spider=DVWASpider, injector=injector))
+         dict(spider=DVWASpider, injector=injector, crawled_site='dvwa'))
     ])
 
 

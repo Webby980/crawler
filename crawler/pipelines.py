@@ -3,7 +3,7 @@ class CrawlerPipeline(object):
     def process_item(self, item, spider):
         crawl_reason = item['crawl_reason']
         page = item['url'].split("/")[-2]
-        filename = 'dvwa-%s-%s.html' % (page, crawl_reason)
+        filename = 'outputs/dvwa-%s-%s.html' % (page, crawl_reason)
         with open(filename, 'wb') as file:
             file.write(item['body'])
         return item
