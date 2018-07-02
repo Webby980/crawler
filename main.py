@@ -5,17 +5,28 @@ import tornado.web
 from crawler.spiders.dvwa_spider import DVWASpider
 from crawler.injectors.sql import Sql
 from app.handlers.check_vulnerability_handler import CheckVulnerabilityHandler
-from constants import FORM_ID_KEY, SQL_SYNTAX_ERROR_PAYLOAD
+from app.handlers.exploit_vulnerability_handler import ExploitVulnerabilityHandler
+from constants import FORM_ID_KEY, SQL_SYNTAX_ERROR_PAYLOAD, DVWA_SITE_NAME, \
+    SQL_GET_DB_USER_PAYLOAD
 
 
 def make_app():
     """ This function returns an Application instance which holds the request
         handlers for the app. """
-    injector = Sql(FORM_ID_KEY, SQL_SYNTAX_ERROR_PAYLOAD)
+    check_vulnerability_injector = Sql(FORM_ID_KEY, SQL_SYNTAX_ERROR_PAYLOAD)
+    exploit_vulnerability_injector = Sql(FORM_ID_KEY, SQL_GET_DB_USER_PAYLOAD)
 
     return tornado.web.Application([
         (r'/check-vulnerability', CheckVulnerabilityHandler,
-         dict(spider=DVWASpider, injector=injector, crawled_site='dvwa'))
+         dict(spider=DVWASpider,
+              injector=check_vulnerability_injector,
+              crawled_site=DVWA_SITE_NAME)
+         ),
+        (r'/exploit-vulnerability', ExploitVulnerabilityHandler,
+         dict(spider=DVWASpider,
+              injector=exploit_vulnerability_injector,
+              crawled_site=DVWA_SITE_NAME)
+         )
     ])
 
 

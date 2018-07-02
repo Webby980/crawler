@@ -2,13 +2,14 @@ import scrapy
 from loginform import fill_login_form
 from crawler.items import CrawlerItem
 
-from constants import DVWA_VULNERABILITY_ENDPOINTS, DVWA_LOGIN_ENDPOINT
+from constants import DVWA_VULNERABILITY_ENDPOINTS, DVWA_LOGIN_ENDPOINT, \
+    DVWA_CRAWLER_NAME
 from config import DVWA_BASE_URL, DVWA_PASSWORD, DVWA_USER_NAME
 
 
 class DVWASpider(scrapy.Spider):
 
-    name = 'dvwa'
+    name = DVWA_CRAWLER_NAME
 
     def __init__(self, crawl_reason, injector):
         super().__init__()
