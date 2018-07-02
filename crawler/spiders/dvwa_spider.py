@@ -1,6 +1,5 @@
 import scrapy
 from loginform import fill_login_form
-from crawler.injectors.sql import Sql
 from crawler.items import CrawlerItem
 
 from constants import DVWA_VULNERABILITY_ENDPOINTS, DVWA_LOGIN_ENDPOINT
@@ -9,9 +8,12 @@ from config import DVWA_BASE_URL, DVWA_PASSWORD, DVWA_USER_NAME
 
 class DVWASpider(scrapy.Spider):
 
-    def __init__(self):
-        super().__init__('dvwa')
-        self.injector = Sql()
+    name = 'dvwa'
+
+    def __init__(self, crawl_reason, injector):
+        super().__init__()
+        self.crawl_reason = crawl_reason
+        self.injector = injector
 
     def start_requests(self):
         yield scrapy.Request(DVWA_BASE_URL + DVWA_LOGIN_ENDPOINT,
@@ -37,6 +39,7 @@ class DVWASpider(scrapy.Spider):
 
     def parse(self, response):
         item = CrawlerItem()
+        item['crawl_reason'] = self.crawl_reason
         item['url'] = response.url
         item['body'] = response.body
         yield item
