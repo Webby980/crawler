@@ -1,13 +1,12 @@
 """ This module contains """
-import json
 from scrapy.crawler import CrawlerProcess
 from app.handlers.base_handler import BaseHandler
-from app.parsers.exploit_vulnerability import CheckVulnerabilityParser
+from app.parsers.get_db_version import GetDbVersionParser
 from constants import USER_AGENT_KEY, CRAWLER_PROCESS_USER_AGENT, ITEM_PIPELINES_KEY, \
     CRAWLER_PIPELINE
 
 
-class ExploitVulnerabilityHandler(BaseHandler):
+class GetDbUsersHandler(BaseHandler):
     """ This class is a tornado handler in charge of """
 
     def initialize(self, spider, injector, crawled_site):
@@ -22,14 +21,14 @@ class ExploitVulnerabilityHandler(BaseHandler):
         })
 
         process.crawl(self.spider,
-                      crawl_reason='exploit-vulnerability',
+                      crawl_reason='get-db-version',
                       injector=self.injector)
         process.start()
 
-        parser = CheckVulnerabilityParser(self.crawled_site)
-        db_usernames = parser.get_db_usernames()
+        parser = GetDbVersionParser(self.crawled_site)
+        db_version = parser.get_db_version()
 
-        self.write({'db_usernames': json.dumps(db_usernames)})
+        self.write({'db_version': db_version})
 
     def post(self):
         pass

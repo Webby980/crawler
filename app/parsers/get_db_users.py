@@ -1,18 +1,16 @@
-import re
 import glob
 from bs4 import BeautifulSoup
 from config import ROOT_PATH
-from constants import SQL_VULNERABILITY_CHECK_TEXT
 
 
-class CheckVulnerabilityParser:
+class GetDbUsersParser:
 
     def __init__(self, crawled_site):
         self.crawled_site = crawled_site
 
     def get_db_usernames(self):
         payloads = {}
-        for filename in glob.glob('%s/%s-*-exploit-vulnerability.html' %
+        for filename in glob.glob('%s/%s-*-get-db-users.html' %
                                   (ROOT_PATH, self.crawled_site)):
             content = self.get_payload(filename)
             payloads[filename] = content
@@ -27,7 +25,7 @@ class CheckVulnerabilityParser:
                 surname = surname_field.replace('Surname: ', '').replace('</pre>', '').strip()
                 full_name = '%s, %s' % (firstname, surname)
                 usernames.append(full_name)
-            db_usernames[key] = usernames
+            db_usernames[key.replace(ROOT_PATH, '')] = usernames
 
         return db_usernames
 
