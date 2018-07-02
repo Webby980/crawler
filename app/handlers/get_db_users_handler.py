@@ -1,10 +1,12 @@
 """ This module contains """
 import json
-from scrapy.crawler import CrawlerProcess
+import scrapydo
 from app.handlers.base_handler import BaseHandler
 from app.parsers.get_db_users import GetDbUsersParser
 from constants import USER_AGENT_KEY, CRAWLER_PROCESS_USER_AGENT, ITEM_PIPELINES_KEY, \
     CRAWLER_PIPELINE
+
+scrapydo.setup()
 
 
 class GetDbUsersHandler(BaseHandler):
@@ -16,15 +18,11 @@ class GetDbUsersHandler(BaseHandler):
         self.crawled_site = crawled_site
 
     def get(self):
-        process = CrawlerProcess({
+
+        scrapydo.run_spider(self.spider, crawl_reason='get-db-users', injector=self.injector, settings={
             USER_AGENT_KEY: CRAWLER_PROCESS_USER_AGENT,
             ITEM_PIPELINES_KEY: CRAWLER_PIPELINE
         })
-
-        process.crawl(self.spider,
-                      crawl_reason='get-db-users',
-                      injector=self.injector)
-        process.start()
 
         parser = GetDbUsersParser(self.crawled_site)
         db_usernames = parser.get_db_usernames()

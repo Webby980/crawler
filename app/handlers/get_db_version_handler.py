@@ -1,9 +1,11 @@
 """ This module contains """
-from scrapy.crawler import CrawlerProcess
+import scrapydo
 from app.handlers.base_handler import BaseHandler
 from app.parsers.get_db_version import GetDbVersionParser
 from constants import USER_AGENT_KEY, CRAWLER_PROCESS_USER_AGENT, ITEM_PIPELINES_KEY, \
     CRAWLER_PIPELINE
+
+scrapydo.setup()
 
 
 class GetDbVersionHandler(BaseHandler):
@@ -15,15 +17,12 @@ class GetDbVersionHandler(BaseHandler):
         self.crawled_site = crawled_site
 
     def get(self):
-        process = CrawlerProcess({
-            USER_AGENT_KEY: CRAWLER_PROCESS_USER_AGENT,
-            ITEM_PIPELINES_KEY: CRAWLER_PIPELINE
-        })
 
-        process.crawl(self.spider,
-                      crawl_reason='get-db-version',
-                      injector=self.injector)
-        process.start()
+        scrapydo.run_spider(self.spider, crawl_reason='get-db-version', injector=self.injector,
+                            settings={
+                                USER_AGENT_KEY: CRAWLER_PROCESS_USER_AGENT,
+                                ITEM_PIPELINES_KEY: CRAWLER_PIPELINE
+                            })
 
         parser = GetDbVersionParser(self.crawled_site)
         db_version = parser.get_db_version()
