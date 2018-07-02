@@ -10,7 +10,7 @@ class GetDbVersionParser:
 
     def get_db_version(self):
         payloads = {}
-        for filename in glob.glob('%s/%s-*-get-db-version.html' %
+        for filename in glob.glob('%s/crawler_outputs/%s-*-get-db-version.html' %
                                   (ROOT_PATH, self.crawled_site)):
             content = self.get_payload(filename)
             payloads[filename] = content

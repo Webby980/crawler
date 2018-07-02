@@ -10,7 +10,7 @@ class GetDbUsersParser:
 
     def get_db_usernames(self):
         payloads = {}
-        for filename in glob.glob('%s/%s-*-get-db-users.html' %
+        for filename in glob.glob('%s/crawler_outputs/%s-*-get-db-users.html' %
                                   (ROOT_PATH, self.crawled_site)):
             content = self.get_payload(filename)
             payloads[filename] = content

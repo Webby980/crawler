@@ -6,7 +6,7 @@ from constants import USER_AGENT_KEY, CRAWLER_PROCESS_USER_AGENT, ITEM_PIPELINES
     CRAWLER_PIPELINE
 
 
-class GetDbUsersHandler(BaseHandler):
+class GetDbVersionHandler(BaseHandler):
     """ This class is a tornado handler in charge of """
 
     def initialize(self, spider, injector, crawled_site):

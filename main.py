@@ -6,7 +6,7 @@ from crawler.spiders.dvwa_spider import DVWASpider
 from crawler.injectors.sql import Sql
 from app.handlers.check_vulnerability_handler import CheckVulnerabilityHandler
 from app.handlers.get_db_users_handler import GetDbUsersHandler
-from app.handlers.get_db_version_handler import GetDbUsersHandler
+from app.handlers.get_db_version_handler import GetDbVersionHandler
 from constants import FORM_ID_KEY, SQL_SYNTAX_ERROR_PAYLOAD, DVWA_SITE_NAME, \
     SQL_GET_DB_USER_PAYLOAD, SQL_GET_DB_VERSION_PAYLOAD
 
@@ -29,7 +29,7 @@ def make_app():
               injector=get_db_user_injector,
               crawled_site=DVWA_SITE_NAME)
          ),
-        (r'/get-db-version', GetDbUsersHandler,
+        (r'/get-db-version', GetDbVersionHandler,
          dict(spider=DVWASpider,
               injector=get_db_version_injector,
               crawled_site=DVWA_SITE_NAME)
