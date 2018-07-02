@@ -1,6 +1,3 @@
-""" This module holds reusable strings and integers for the application. It consolidates changes to
-these values. """
-
 # Scrapy Settings
 USER_AGENT_KEY = 'USER_AGENT'
 CRAWLER_PROCESS_USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'

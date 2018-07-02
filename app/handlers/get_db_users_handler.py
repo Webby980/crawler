@@ -1,4 +1,3 @@
-""" This module contains """
 import json
 import scrapydo
 from app.handlers.base_handler import BaseHandler
@@ -10,7 +9,6 @@ scrapydo.setup()
 
 
 class GetDbUsersHandler(BaseHandler):
-    """ This class is a tornado handler in charge of """
 
     def initialize(self, spider, injector, crawled_site):
         self.spider = spider
@@ -18,7 +16,6 @@ class GetDbUsersHandler(BaseHandler):
         self.crawled_site = crawled_site
 
     def get(self):
-
         scrapydo.run_spider(self.spider, crawl_reason='get-db-users', injector=self.injector, settings={
             USER_AGENT_KEY: CRAWLER_PROCESS_USER_AGENT,
             ITEM_PIPELINES_KEY: CRAWLER_PIPELINE

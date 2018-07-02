@@ -1,5 +1,3 @@
-""" This is the main module for the application. It is in charge of creating and configuring the
-tornado web server app. """
 import tornado.ioloop
 import tornado.web
 from crawler.spiders.dvwa_spider import DVWASpider
@@ -12,8 +10,6 @@ from constants import FORM_ID_KEY, SQL_SYNTAX_ERROR_PAYLOAD, DVWA_SITE_NAME, \
 
 
 def make_app():
-    """ This function returns an Application instance which holds the request
-        handlers for the app. """
     check_vulnerability_injector = Sql(FORM_ID_KEY, SQL_SYNTAX_ERROR_PAYLOAD)
     get_db_user_injector = Sql(FORM_ID_KEY, SQL_GET_DB_USER_PAYLOAD)
     get_db_version_injector = Sql(FORM_ID_KEY, SQL_GET_DB_VERSION_PAYLOAD)
