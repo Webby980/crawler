@@ -1,5 +1,3 @@
-""" This module constitutes as the single point of configuration for the application and pulls
-the necessary environment variables required to run th=e application. Such as secrets. """
 import os
 
 # DVWA application config
