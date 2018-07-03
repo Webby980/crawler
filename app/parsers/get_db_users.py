@@ -5,15 +5,16 @@ from config import ROOT_PATH
 
 class GetDbUsersParser:
 
-    def __init__(self, crawled_site):
+    def __init__(self, crawled_site, storage_adapter):
         self.crawled_site = crawled_site
+        self.storage_adapter = storage_adapter
 
     def get_db_usernames(self):
         payloads = {}
-        for filename in glob.glob('%s/crawler_outputs/%s-*-get-db-users.html' %
+        for file_path in glob.glob('%s/crawler_outputs/%s-*-get-db-users.html' %
                                   (ROOT_PATH, self.crawled_site)):
-            content = self.get_payload(filename)
-            payloads[filename] = content
+            content = self.storage_adapter.get(file_path)
+            payloads[file_path] = content
 
         db_usernames = {}
         for key, value in payloads.items():
@@ -25,10 +26,6 @@ class GetDbUsersParser:
                 surname = surname_field.replace('Surname: ', '').replace('</pre>', '').strip()
                 full_name = '%s, %s' % (firstname, surname)
                 usernames.append(full_name)
-            db_usernames[key.replace(ROOT_PATH, '')] = usernames
+            db_usernames[key.replace(ROOT_PATH + '/crawler_outputs', '')] = usernames
 
         return db_usernames
-
-    def get_payload(self, file_path):
-        with open(file_path, 'r') as file:
-            return file.read()

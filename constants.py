@@ -1,8 +1,6 @@
 # Scrapy Settings
 USER_AGENT_KEY = 'USER_AGENT'
-CRAWLER_PROCESS_USER_AGENT = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
 ITEM_PIPELINES_KEY = 'ITEM_PIPELINES'
-CRAWLER_PIPELINE = {'crawler.pipelines.CrawlerPipeline': 300}
 
 # DVWA
 DVWA_CRAWLER_NAME = 'dvwa'
